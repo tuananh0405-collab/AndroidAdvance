@@ -1,0 +1,33 @@
+<resources>
+    <!-- Common strings -->
+    <string name="app_name">Profile App</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="avatar">Avatar</string>
+    <string name="nav_edit_profile">Edit Profile</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- Edit Profile Fragment strings -->
+    <string name="full_name">Full Name</string>
+    <string name="email">Email</string>
+    <string name="birthday">Birthday (yyyy/mm/dd)</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+
+    <!-- Error messages -->
+    <string name="error_invalid_email">Invalid email format</string>
+    <string name="error_empty_full_name">Full name cannot be empty</string>
+    <string name="error_empty_email">Email cannot be empty</string>
+    <string name="error_empty_birthday">Birthday cannot be empty</string>
+    <string name="error_empty_gender">Gender must be selected</string>
+
+    <!-- Navigation drawer header strings -->
+    <string name="nav_header_title">Profile</string>
+    <string name="nav_header_subtitle">Manage your profile</string>
+
+    <!-- Avatar menu strings -->
+    <string name="avatar_menu_title">Select Avatar</string>
+</resources>
