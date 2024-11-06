@@ -62,6 +62,7 @@
                 android:layout_gravity="center"
                 android:backgroundTint="#4CAF50"
                 android:text="Add Product"
+                android:onClick="@{() -> viewModel.onAddProductClicked(product)}"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -83,6 +84,7 @@
                     android:id="@+id/btn_select_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewModel.showImgDialog(btnSelectImage.getContext())}"
                     android:text="Select Image" />
 
                 <ImageView

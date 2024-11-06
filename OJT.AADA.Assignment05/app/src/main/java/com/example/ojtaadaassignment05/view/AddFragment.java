@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,19 +32,35 @@ public class AddFragment extends Fragment {
         binding.setLifecycleOwner(this);
 
         viewModel = new ViewModelProvider(requireActivity()).get(ProductViewModel.class);
-        binding.btnSelectImage.setOnClickListener(v -> {
-            chooseImage();
-        });
-
-        binding.btnAddProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isValidInput()) {
-                    viewModel.addProduct(getProduct());
-                }
-                requireActivity().onBackPressed();
+        viewModel.getImageResId().observe(getViewLifecycleOwner(), resId -> {
+            if (resId != null) {
+                binding.ivProductImage.setImageResource(resId);
+                binding.ivProductImage.setId(resId);
+                binding.getProduct().setImageResId(resId);
             }
         });
+        viewModel.getAddProductCompleted().observe(getViewLifecycleOwner(), completed -> {
+            if (Boolean.TRUE.equals(completed)) {
+                NavController navController = Navigation.findNavController(requireView());
+                navController.navigateUp();
+                viewModel.resetAddProductCompleted();
+            }
+        });
+
+        binding.setViewModel(viewModel);
+//        binding.btnSelectImage.setOnClickListener(v -> {
+//            chooseImage();
+//        });
+
+//        binding.btnAddProduct.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (isValidInput()) {
+//                    viewModel.addProduct(getProduct());
+//                }
+//                requireActivity().onBackPressed();
+//            }
+//        });
 
         return binding.getRoot();
     }

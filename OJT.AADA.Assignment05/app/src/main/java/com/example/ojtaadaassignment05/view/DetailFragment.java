@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,20 +33,31 @@ public class DetailFragment extends Fragment {
                 binding.setProduct(product);
             }
         });
+        binding.setViewModel(viewModel);
+        binding.setLifecycleOwner(this);
 
-        binding.ivProductImage.setOnClickListener(view -> {
-            chooseImage();
-        });
+//        binding.ivProductImage.setOnClickListener(view -> {
+//            chooseImage();
+//        });
 
-        binding.btnUpdate.setOnClickListener(v -> {
-            if (isValidInput()) {
-                if (viewModel.getSelectedProduct().getValue() != null) {
-                    viewModel.updateProduct(getProduct());
-                    clearForm();
-                    viewModel.clearSelectedProduct();
-                }
+//        binding.btnUpdate.setOnClickListener(v -> {
+//            if (isValidInput()) {
+//                if (viewModel.getSelectedProduct().getValue() != null) {
+//                    viewModel.updateProduct(getProduct());
+//                    clearForm();
+//                    viewModel.clearSelectedProduct();
+//                }
+//            }
+//            requireActivity().onBackPressed();
+//        });
+
+        viewModel.getUpdateCompleted().observe(getViewLifecycleOwner(), completed -> {
+            if (completed != null && completed) {
+//                requireActivity().onBackPressed();
+                NavController navController = Navigation.findNavController(requireView());
+                navController.navigateUp();
+                viewModel.resetUpdateStatus();
             }
-            requireActivity().onBackPressed();
         });
         return binding.getRoot();
     }
@@ -58,6 +71,7 @@ public class DetailFragment extends Fragment {
                 !binding.tvProductDescription.getText().toString().isEmpty() &&
                 !binding.tvProductPrice.getText().toString().isEmpty();
     }
+
     private void chooseImage() {
         final String[] imageOptions = {"Bacon", "Chicken", "Ranch", "Beef", "Berry"};
         final int[] imageResources = {R.drawable.bacon_wrapped, R.drawable.bbq_chicken, R.drawable.bbq_ranch, R.drawable.beef_stir_fry, R.drawable.berry_blast};
@@ -70,6 +84,7 @@ public class DetailFragment extends Fragment {
                 });
         builder.show();
     }
+
     private Product getProduct() {
         Product product = new Product();
         product.setCode(Integer.parseInt(binding.tvProductCode.getText().toString()));

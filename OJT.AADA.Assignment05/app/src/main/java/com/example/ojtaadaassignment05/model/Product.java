@@ -5,12 +5,14 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import com.example.ojtaadaassignment05.R;
+
 public class Product implements Parcelable {
     private int code;
     private String name;
     private String description;
     private float price;
-    private int imageResId;
+    private int imageResId = R.drawable.baseline_image_24;
 
     public Product() {
     }

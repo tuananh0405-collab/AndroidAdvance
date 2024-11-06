@@ -6,6 +6,11 @@
         <variable
             name="product"
             type="com.example.ojtaadaassignment05.model.Product" />
+
+        <variable
+            name="viewModel"
+            type="com.example.ojtaadaassignment05.viewmodel.ProductViewModel" />
+
     </data>
 
     <LinearLayout
@@ -18,6 +23,7 @@
             android:id="@+id/iv_product_image"
             android:layout_width="match_parent"
             android:layout_height="300dp"
+            android:onClick="@{() -> viewModel.showImgDialog(ivProductImage.getContext())}"
             android:layout_gravity="center"
             android:scaleType="centerCrop"
             app:imageResId="@{product.imageResId}" />
@@ -64,6 +70,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
             android:backgroundTint="#4CAF50"
+            android:onClick="@{() -> viewModel.updateProduct(product)}"
             android:text="Update Product"
             android:textSize="20sp" />
     </LinearLayout>
