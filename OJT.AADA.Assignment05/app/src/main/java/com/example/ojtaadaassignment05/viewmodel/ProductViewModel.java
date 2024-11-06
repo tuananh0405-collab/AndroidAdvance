@@ -45,16 +45,8 @@ public class ProductViewModel extends ViewModel {
         List<Product> currentProducts = products.getValue();
         currentProducts.add(0, product);
         products.setValue(currentProducts);
+        imageResId.setValue(R.drawable.baseline_image_24);
     }
-
-//    public void updateProduct(Product product) {
-//        List<Product> currentProducts = products.getValue();
-//        int index = currentProducts.indexOf(selectedProduct.getValue());
-//        if (index != -1) {
-//            currentProducts.set(index, product);
-//            products.setValue(currentProducts);
-//        }
-//    }
 
     public void removeProduct(Product product) {
         List<Product> currentProducts = products.getValue();
@@ -125,6 +117,8 @@ public class ProductViewModel extends ViewModel {
                 updateCompleted.setValue(true);
             }
         }
+        imageResId.setValue(R.drawable.baseline_image_24);
+        clearSelectedProduct();
     }
 
     public void resetUpdateStatus() {

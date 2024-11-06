@@ -19,23 +19,32 @@ public class BindingAdapters {
         imageView.setImageResource(imageResId);
     }
 
-//    @BindingAdapter("android:text")
-//    public static void setFloatInText(EditText view, float value) {
-//        if (!view.getText().toString().equals(String.valueOf(value))) {
-//            view.setText(String.valueOf(value));
-//        }
-//    }
-@BindingAdapter("android:text")
-public static void setFloatInText(EditText view, float value) {
-    if ( value != 0.0f) {
-        String text = view.getText().toString();
-        if (!text.equals(String.valueOf(value))) {
-            view.setText(String.valueOf(value));
-        }
-    } else {
-        view.setText("");
+    @InverseBindingAdapter(attribute = "imageResId", event = "imageResIdAttrChanged")
+    public static int getImageResource(ImageView imageView) {
+        return (int) imageView.getTag();
     }
-}
+
+    @BindingAdapter("imageResIdAttrChanged")
+    public static void setImageResIdListener(ImageView imageView, InverseBindingListener listener) {
+        imageView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onChange();
+            }
+        });
+    }
+
+
+    @BindingAdapter("android:text")
+    public static void setFloatInText(EditText view, float value) {
+        if (value != 0.0f) {
+            String text = view.getText().toString();
+            if (!text.equals(String.valueOf(value))) {
+                view.setText(String.valueOf(value));
+            }
+        } else {
+            view.setText("");
+        }
+    }
 
 
     @InverseBindingAdapter(attribute = "android:text")
@@ -49,10 +58,7 @@ public static void setFloatInText(EditText view, float value) {
 
     @BindingAdapter("android:text")
     public static void setIntInText(EditText view, int value) {
-//        if (!view.getText().toString().equals(String.valueOf(value))) {
-//            view.setText(String.valueOf(value));
-//        }
-        if ( value != 0) {
+        if (value != 0) {
             String text = view.getText().toString();
             if (!text.equals(String.valueOf(value))) {
                 view.setText(String.valueOf(value));
@@ -70,6 +76,7 @@ public static void setFloatInText(EditText view, float value) {
             return 0;
         }
     }
+
     @BindingAdapter("android:text")
     public static void setFloatInText(TextView view, float value) {
         if (!view.getText().toString().equals(String.valueOf(value))) {

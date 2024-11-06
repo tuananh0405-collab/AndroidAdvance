@@ -12,7 +12,7 @@ public class Product implements Parcelable {
     private String name;
     private String description;
     private float price;
-    private int imageResId = R.drawable.baseline_image_24;
+    private int imageResId ;
 
     public Product() {
     }

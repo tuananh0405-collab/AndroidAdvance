@@ -33,27 +33,17 @@ public class DetailFragment extends Fragment {
                 binding.setProduct(product);
             }
         });
+        viewModel.getImageResId().observe(getViewLifecycleOwner(), resId -> {
+            if (resId != null) {
+                binding.ivProductImage.setImageResource(resId);
+            }
+        });
+
         binding.setViewModel(viewModel);
         binding.setLifecycleOwner(this);
 
-//        binding.ivProductImage.setOnClickListener(view -> {
-//            chooseImage();
-//        });
-
-//        binding.btnUpdate.setOnClickListener(v -> {
-//            if (isValidInput()) {
-//                if (viewModel.getSelectedProduct().getValue() != null) {
-//                    viewModel.updateProduct(getProduct());
-//                    clearForm();
-//                    viewModel.clearSelectedProduct();
-//                }
-//            }
-//            requireActivity().onBackPressed();
-//        });
-
         viewModel.getUpdateCompleted().observe(getViewLifecycleOwner(), completed -> {
             if (completed != null && completed) {
-//                requireActivity().onBackPressed();
                 NavController navController = Navigation.findNavController(requireView());
                 navController.navigateUp();
                 viewModel.resetUpdateStatus();
@@ -62,38 +52,4 @@ public class DetailFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void clearForm() {
-        binding.setProduct(new Product());
-    }
-
-    private boolean isValidInput() {
-        return !binding.tvProductName.getText().toString().isEmpty() &&
-                !binding.tvProductDescription.getText().toString().isEmpty() &&
-                !binding.tvProductPrice.getText().toString().isEmpty();
-    }
-
-    private void chooseImage() {
-        final String[] imageOptions = {"Bacon", "Chicken", "Ranch", "Beef", "Berry"};
-        final int[] imageResources = {R.drawable.bacon_wrapped, R.drawable.bbq_chicken, R.drawable.bbq_ranch, R.drawable.beef_stir_fry, R.drawable.berry_blast};
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Select Product Image")
-                .setItems(imageOptions, (dialog, which) -> {
-                    binding.ivProductImage.setImageResource(imageResources[which]);
-                    binding.ivProductImage.setId(imageResources[which]);
-                });
-        builder.show();
-    }
-
-    private Product getProduct() {
-        Product product = new Product();
-        product.setCode(Integer.parseInt(binding.tvProductCode.getText().toString()));
-        product.setName(binding.tvProductName.getText().toString());
-        product.setDescription(binding.tvProductDescription.getText().toString());
-        product.setPrice(Float.parseFloat(binding.tvProductPrice.getText().toString()));
-        product.setImageResId(binding.ivProductImage.getId());
-        return product;
-
-
-    }
 }

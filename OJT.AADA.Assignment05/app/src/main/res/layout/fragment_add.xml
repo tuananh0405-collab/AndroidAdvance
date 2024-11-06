@@ -92,7 +92,7 @@
                     android:layout_width="200dp"
                     android:layout_height="200dp"
                     android:layout_marginTop="8dp"
-                    app:imageResId="@{product.imageResId}"
+                    app:imageResId="@={product.imageResId}"
                     android:contentDescription="Product Image"
                     android:scaleType="centerCrop" />
             </LinearLayout>

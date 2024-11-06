@@ -35,8 +35,6 @@ public class AddFragment extends Fragment {
         viewModel.getImageResId().observe(getViewLifecycleOwner(), resId -> {
             if (resId != null) {
                 binding.ivProductImage.setImageResource(resId);
-                binding.ivProductImage.setId(resId);
-                binding.getProduct().setImageResId(resId);
             }
         });
         viewModel.getAddProductCompleted().observe(getViewLifecycleOwner(), completed -> {
@@ -48,52 +46,7 @@ public class AddFragment extends Fragment {
         });
 
         binding.setViewModel(viewModel);
-//        binding.btnSelectImage.setOnClickListener(v -> {
-//            chooseImage();
-//        });
-
-//        binding.btnAddProduct.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (isValidInput()) {
-//                    viewModel.addProduct(getProduct());
-//                }
-//                requireActivity().onBackPressed();
-//            }
-//        });
-
         return binding.getRoot();
     }
 
-    private boolean isValidInput() {
-        return !binding.edtProductCode.getText().toString().isEmpty() &&
-                !binding.edtProductName.getText().toString().isEmpty() &&
-                !binding.edtProductDescription.getText().toString().isEmpty() &&
-                !binding.edtProductPrice.getText().toString().isEmpty();
-    }
-
-    private void chooseImage() {
-        final String[] imageOptions = {"Bacon", "Chicken", "Ranch", "Beef", "Berry"};
-        final int[] imageResources = {R.drawable.bacon_wrapped, R.drawable.bbq_chicken, R.drawable.bbq_ranch, R.drawable.beef_stir_fry, R.drawable.berry_blast};
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Select Product Image")
-                .setItems(imageOptions, (dialog, which) -> {
-                    binding.ivProductImage.setImageResource(imageResources[which]);
-                    binding.ivProductImage.setId(imageResources[which]);
-                });
-        builder.show();
-    }
-
-    private Product getProduct() {
-        Product product = new Product();
-        product.setCode(Integer.parseInt(binding.edtProductCode.getText().toString()));
-        product.setName(binding.edtProductName.getText().toString());
-        product.setDescription(binding.edtProductDescription.getText().toString());
-        product.setPrice(Float.parseFloat(binding.edtProductPrice.getText().toString()));
-        product.setImageResId(binding.ivProductImage.getId());
-        return product;
-
-
-    }
 }
