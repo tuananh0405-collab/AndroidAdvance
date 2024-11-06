@@ -18,11 +18,8 @@ import java.util.List;
 public class ProductViewModel extends ViewModel {
     private MutableLiveData<List<Product>> products;
     private MutableLiveData<Product> selectedProduct = new MutableLiveData<>();
-    private NavController navController;
-//    private Context context;
 
     public ProductViewModel() {
-//        this.context = context;
         products = new MutableLiveData<>(new ArrayList<>());
     }
 
@@ -64,15 +61,14 @@ public class ProductViewModel extends ViewModel {
         }
     }
 
-    public void onProductLongClicked(Product product) {
-        Log.e("TAG", "onProductLongClicked:");
-//        new AlertDialog.Builder(context)
-//                .setTitle("Remove Product")
-//                .setMessage("Are you sure you want to remove this product?")
-//                .setPositiveButton("Yes", (dialog, which) -> {
-//                    removeProduct(product);
-//                })
-//                .setNegativeButton("No", null)
-//                .show();
+    public void onProductLongClicked(Product product, Context context) {
+        new AlertDialog.Builder(context)
+                .setTitle("Remove Product")
+                .setMessage("Are you sure you want to remove this product?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    removeProduct(product);
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 }

@@ -50,7 +50,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             Navigation.findNavController(v).navigate(R.id.action_listFragment_to_detailFragment);
         });
         holder.binding.getRoot().setOnLongClickListener(v -> {
-            viewModel.onProductLongClicked(products.get(position));
+            viewModel.onProductLongClicked(products.get(position), v.getContext());
             return true;
         });
     }

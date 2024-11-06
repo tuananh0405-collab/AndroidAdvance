@@ -14,7 +14,6 @@ import com.example.ojtaadaassignment05.R;
 import com.example.ojtaadaassignment05.databinding.FragmentDetailBinding;
 import com.example.ojtaadaassignment05.model.Product;
 import com.example.ojtaadaassignment05.viewmodel.ProductViewModel;
-import com.example.ojtaadaassignment05.viewmodel.ProductViewModelFactory;
 
 
 public class DetailFragment extends Fragment {
@@ -27,9 +26,6 @@ public class DetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentDetailBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(requireActivity()).get(ProductViewModel.class);
-//        ProductViewModelFactory factory = new ProductViewModelFactory(getContext());
-//        viewModel = new ViewModelProvider(this, factory).get(ProductViewModel.class);
-
         viewModel.getSelectedProduct().observe(getViewLifecycleOwner(), product -> {
             if (product != null) {
                 binding.setProduct(product);

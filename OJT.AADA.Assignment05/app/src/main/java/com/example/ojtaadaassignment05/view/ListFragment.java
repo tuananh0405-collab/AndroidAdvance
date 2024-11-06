@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import com.example.ojtaadaassignment05.adapter.ProductAdapter;
 import com.example.ojtaadaassignment05.databinding.FragmentListBinding;
 import com.example.ojtaadaassignment05.viewmodel.ProductViewModel;
-import com.example.ojtaadaassignment05.viewmodel.ProductViewModelFactory;
 
 import java.util.ArrayList;
 
@@ -39,9 +38,6 @@ public class ListFragment extends Fragment {
         binding.rcvProduct.setAdapter(adapter);
 
         viewModel = new ViewModelProvider(requireActivity()).get(ProductViewModel.class);
-//        ProductViewModelFactory factory = new ProductViewModelFactory(getContext());
-//        viewModel = new ViewModelProvider(this, factory).get(ProductViewModel.class);
-
         viewModel.getProducts().observe(getViewLifecycleOwner(), adapter::setProducts);
 
         return binding.getRoot();

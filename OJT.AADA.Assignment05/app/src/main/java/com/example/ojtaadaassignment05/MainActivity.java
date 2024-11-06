@@ -1,7 +1,10 @@
 package com.example.ojtaadaassignment05;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -11,7 +14,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.ojtaadaassignment05.databinding.ActivityMainBinding;
 import com.example.ojtaadaassignment05.viewmodel.ProductViewModel;
-import com.example.ojtaadaassignment05.viewmodel.ProductViewModelFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,8 +25,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
-//        ProductViewModelFactory factory = new ProductViewModelFactory(this);
-//        viewModel = new ViewModelProvider(this, factory).get(ProductViewModel.class);
 
         viewModel = new ViewModelProvider(this).get(ProductViewModel.class);
         setContentView(binding.getRoot());
@@ -56,4 +56,28 @@ public class MainActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         return NavigationUI.navigateUp(Navigation.findNavController(this, R.id.nav_host_fragment), binding.drawerLayout);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_actions, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.list_product) {
+            navController.navigate(R.id.listFragment);
+            return true;
+        } else if (id == R.id.add_product) {
+            navController.navigate(R.id.addFragment);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
 }
